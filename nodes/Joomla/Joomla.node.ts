@@ -13,6 +13,7 @@ import {
 	getCategories,
 	getLanguages,
 	getTags,
+	getArticleCustomFields,
 	joomlaApiRequest,
 	joomlaApiRequestAllItems,
 } from './GenericFunctions';
@@ -91,6 +92,7 @@ export class Joomla implements INodeType {
 			getCategories,
 			getTags,
 			getLanguages,
+			getArticleCustomFields,
 		},
 	};
 
@@ -131,6 +133,20 @@ export class Joomla implements INodeType {
 								} else {
 									body[key] = value;
 								}
+							}
+						}
+
+						// Process custom fields
+						const customFieldsData = this.getNodeParameter('customFields', i, {}) as IDataObject;
+						if (customFieldsData.field && Array.isArray(customFieldsData.field)) {
+							const comFields: IDataObject = {};
+							for (const fieldEntry of customFieldsData.field as IDataObject[]) {
+								if (fieldEntry.fieldName && fieldEntry.fieldValue !== undefined) {
+									comFields[fieldEntry.fieldName as string] = fieldEntry.fieldValue;
+								}
+							}
+							if (Object.keys(comFields).length > 0) {
+								body.com_fields = comFields;
 							}
 						}
 
@@ -217,6 +233,20 @@ export class Joomla implements INodeType {
 								} else {
 									body[key] = value;
 								}
+							}
+						}
+
+						// Process custom fields
+						const customFieldsData = this.getNodeParameter('customFields', i, {}) as IDataObject;
+						if (customFieldsData.field && Array.isArray(customFieldsData.field)) {
+							const comFields: IDataObject = {};
+							for (const fieldEntry of customFieldsData.field as IDataObject[]) {
+								if (fieldEntry.fieldName && fieldEntry.fieldValue !== undefined) {
+									comFields[fieldEntry.fieldName as string] = fieldEntry.fieldValue;
+								}
+							}
+							if (Object.keys(comFields).length > 0) {
+								body.com_fields = comFields;
 							}
 						}
 

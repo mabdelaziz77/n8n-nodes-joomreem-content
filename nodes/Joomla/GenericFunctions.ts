@@ -161,3 +161,29 @@ export async function getLanguages(
 
 	return returnData;
 }
+
+/**
+ * Get custom fields for articles dropdown
+ */
+export async function getArticleCustomFields(
+	this: ILoadOptionsFunctions,
+): Promise<INodePropertyOptions[]> {
+	const returnData: INodePropertyOptions[] = [];
+
+	try {
+		const fields = await joomlaApiRequestAllItems.call(this, 'GET', '/fields/content/articles');
+
+		for (const field of fields) {
+			const attributes = field.attributes as IDataObject;
+			returnData.push({
+				name: `${attributes.title as string} (${attributes.name as string})`,
+				value: attributes.name as string,
+				description: `Type: ${attributes.type as string}`,
+			});
+		}
+	} catch (error) {
+		// Return empty if fields API not available or no fields defined
+	}
+
+	return returnData;
+}

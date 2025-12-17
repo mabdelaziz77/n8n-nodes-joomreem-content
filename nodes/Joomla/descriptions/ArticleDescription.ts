@@ -295,6 +295,48 @@ export const articleFields: INodeProperties[] = [
 			},
 		],
 	},
+	{
+		displayName: 'Custom Fields',
+		name: 'customFields',
+		type: 'fixedCollection',
+		placeholder: 'Add Custom Field',
+		default: {},
+		typeOptions: {
+			multipleValues: true,
+		},
+		displayOptions: {
+			show: {
+				resource: ['article'],
+				operation: ['create'],
+			},
+		},
+		description: 'Set values for article custom fields',
+		options: [
+			{
+				displayName: 'Field',
+				name: 'field',
+				values: [
+					{
+						displayName: 'Field Name or ID',
+						name: 'fieldName',
+						type: 'options',
+						typeOptions: {
+							loadOptionsMethod: 'getArticleCustomFields',
+						},
+						default: '',
+						description: 'The custom field to set. Choose from the list, or specify the field name using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
+					},
+					{
+						displayName: 'Value',
+						name: 'fieldValue',
+						type: 'string',
+						default: '',
+						description: 'The value to set for the custom field',
+					},
+				],
+			},
+		],
+	},
 
 	// ----------------------------------
 	//         article:update
@@ -413,6 +455,48 @@ export const articleFields: INodeProperties[] = [
 				type: 'json',
 				default: '{}',
 				description: 'Article images as JSON. Example: {"image_intro": "images/articles/my-image.jpg", "image_intro_alt": "Alt text", "image_fulltext": "images/articles/my-image.jpg", "image_fulltext_alt": "Alt text"}',
+			},
+		],
+	},
+	{
+		displayName: 'Custom Fields',
+		name: 'customFields',
+		type: 'fixedCollection',
+		placeholder: 'Add Custom Field',
+		default: {},
+		typeOptions: {
+			multipleValues: true,
+		},
+		displayOptions: {
+			show: {
+				resource: ['article'],
+				operation: ['update'],
+			},
+		},
+		description: 'Set values for article custom fields',
+		options: [
+			{
+				displayName: 'Field',
+				name: 'field',
+				values: [
+					{
+						displayName: 'Field Name or ID',
+						name: 'fieldName',
+						type: 'options',
+						typeOptions: {
+							loadOptionsMethod: 'getArticleCustomFields',
+						},
+						default: '',
+						description: 'The custom field to set. Choose from the list, or specify the field name using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
+					},
+					{
+						displayName: 'Value',
+						name: 'fieldValue',
+						type: 'string',
+						default: '',
+						description: 'The value to set for the custom field',
+					},
+				],
 			},
 		],
 	},
