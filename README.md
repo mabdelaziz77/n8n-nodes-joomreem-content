@@ -14,13 +14,38 @@ This node supports the following Joomla resources and operations:
 |----------|------------|
 | **Article** | Create, Get, Get Many, Update, Delete |
 | **Category** | Create, Get, Get Many, Update, Delete |
+| **Custom Field** | Create, Get, Get Many, Update, Delete |
 | **Tag** | Create, Get, Get Many, Update, Delete |
 | **Media** | List Files, Upload, Create Folder, Delete |
 
 ### Article Features
 - **Images**: Set intro and full article images with alt text
 - **Associations**: Link multilingual articles via the associations field
+- **Custom Fields**: Set custom field values when creating/updating articles
 - **Meta descriptions**: SEO-friendly meta data support
+
+### Category Features
+- **Custom Fields**: Set custom field values for categories
+
+### Custom Field Features
+Create and manage custom field definitions with type-specific options:
+
+| Field Type | Options |
+|------------|---------|
+| **Text** | Max Length |
+| **Textarea** | Rows, Columns, Max Length |
+| **Editor** | Show Buttons, Width, Height |
+| **Integer** | First Value, Last Value, Step |
+| **List** | Options, Multiple, Header/Placeholder |
+| **Radio** | Options |
+| **Checkboxes** | Options |
+| **Calendar** | Date Format, Show Time |
+| **URL** | Allowed Schemes, Relative URLs, Show URL |
+| **Media** | Directory, Preview |
+| **SQL** | Query, Header, Multiple |
+| **Color** | - |
+| **Email** | - |
+| **User** | - |
 
 ## Prerequisites
 
@@ -97,6 +122,32 @@ Update Fields:
   - Associations: {"en-GB": "123", "ar-AA": "456"}
 ```
 
+### Create a Custom Field
+
+```
+Resource: Custom Field
+Operation: Create
+Context: Article
+Title: Rating
+Type: Integer
+First Value: 1
+Last Value: 5
+Step: 1
+```
+
+### Create a List Field with Options
+
+```
+Resource: Custom Field
+Operation: Create
+Context: Article
+Title: Status
+Type: List
+Field Options: {"options": {"options0": {"name": "Draft", "value": "draft"}, "options1": {"name": "Review", "value": "review"}}}
+Header: "Select a status..."
+Multiple: false
+```
+
 ## Compatibility
 
 | Joomla Version | Supported |
@@ -106,6 +157,12 @@ Update Fields:
 | 3.x | ❌ No (use com_api extension) |
 
 ## Known Limitations
+
+### Delete Behavior
+
+Joomla requires items to be **trashed before permanently deleting**. The Delete operation will only work on items that are already in the Trashed state. To delete an item:
+1. First use Update to set `state = -2` (Trashed)
+2. Then use Delete to permanently remove it
 
 ### Media Delete Operation
 

@@ -21,7 +21,7 @@ export const tagOperations: INodeProperties[] = [
 			{
 				name: 'Delete',
 				value: 'delete',
-				description: 'Delete a tag',
+				description: 'Delete a trashed tag (must be in Trashed state first)',
 				action: 'Delete a tag',
 			},
 			{
