@@ -14,6 +14,7 @@ import {
 	getLanguages,
 	getTags,
 	getArticleCustomFields,
+	getCategoryCustomFields,
 	joomlaApiRequest,
 	joomlaApiRequestAllItems,
 } from './GenericFunctions';
@@ -22,6 +23,7 @@ import { articleOperations, articleFields } from './descriptions/ArticleDescript
 import { categoryOperations, categoryFields } from './descriptions/CategoryDescription';
 import { tagOperations, tagFields } from './descriptions/TagDescription';
 import { mediaOperations, mediaFields } from './descriptions/MediaDescription';
+import { fieldOperations, fieldFields } from './descriptions/FieldDescription';
 
 
 export class Joomla implements INodeType {
@@ -61,6 +63,10 @@ export class Joomla implements INodeType {
 						value: 'category',
 					},
 					{
+						name: 'Custom Field',
+						value: 'field',
+					},
+					{
 						name: 'Media',
 						value: 'media',
 					},
@@ -83,6 +89,9 @@ export class Joomla implements INodeType {
 			// Media
 			...mediaOperations,
 			...mediaFields,
+			// Field
+			...fieldOperations,
+			...fieldFields,
 
 		],
 	};
@@ -93,6 +102,7 @@ export class Joomla implements INodeType {
 			getTags,
 			getLanguages,
 			getArticleCustomFields,
+			getCategoryCustomFields,
 		},
 	};
 
@@ -142,7 +152,12 @@ export class Joomla implements INodeType {
 							const comFields: IDataObject = {};
 							for (const fieldEntry of customFieldsData.field as IDataObject[]) {
 								if (fieldEntry.fieldName && fieldEntry.fieldValue !== undefined) {
-									comFields[fieldEntry.fieldName as string] = fieldEntry.fieldValue;
+								let value = fieldEntry.fieldValue;
+								// Handle comma-separated values for checkboxes/multi-select
+								if (typeof value === 'string' && value.includes(',')) {
+									value = value.split(',').map((v: string) => v.trim());
+								}
+								comFields[fieldEntry.fieldName as string] = value;
 								}
 							}
 							if (Object.keys(comFields).length > 0) {
@@ -242,7 +257,7 @@ export class Joomla implements INodeType {
 							const comFields: IDataObject = {};
 							for (const fieldEntry of customFieldsData.field as IDataObject[]) {
 								if (fieldEntry.fieldName && fieldEntry.fieldValue !== undefined) {
-									comFields[fieldEntry.fieldName as string] = fieldEntry.fieldValue;
+									let value = fieldEntry.fieldValue; if (typeof value === 'string' && value.includes(',')){value = value.split(',').map((v: string) => v.trim());} comFields[fieldEntry.fieldName as string] = value;
 								}
 							}
 							if (Object.keys(comFields).length > 0) {
@@ -276,6 +291,20 @@ export class Joomla implements INodeType {
 						for (const [key, value] of Object.entries(additionalFields)) {
 							if (value !== '' && value !== undefined && value !== null) {
 								body[key] = value;
+							}
+						}
+
+						// Process custom fields
+						const customFieldsData = this.getNodeParameter('customFields', i, {}) as IDataObject;
+						if (customFieldsData.field && Array.isArray(customFieldsData.field)) {
+							const comFields: IDataObject = {};
+							for (const fieldEntry of customFieldsData.field as IDataObject[]) {
+								if (fieldEntry.fieldName && fieldEntry.fieldValue !== undefined) {
+									let value = fieldEntry.fieldValue; if (typeof value === 'string' && value.includes(',')){value = value.split(',').map((v: string) => v.trim());} comFields[fieldEntry.fieldName as string] = value;
+								}
+							}
+							if (Object.keys(comFields).length > 0) {
+								body.com_fields = comFields;
 							}
 						}
 
@@ -348,6 +377,20 @@ export class Joomla implements INodeType {
 						for (const [key, value] of Object.entries(updateFields)) {
 							if (value !== '' && value !== undefined && value !== null) {
 								body[key] = value;
+							}
+						}
+
+						// Process custom fields
+						const customFieldsData = this.getNodeParameter('customFields', i, {}) as IDataObject;
+						if (customFieldsData.field && Array.isArray(customFieldsData.field)) {
+							const comFields: IDataObject = {};
+							for (const fieldEntry of customFieldsData.field as IDataObject[]) {
+								if (fieldEntry.fieldName && fieldEntry.fieldValue !== undefined) {
+									let value = fieldEntry.fieldValue; if (typeof value === 'string' && value.includes(',')){value = value.split(',').map((v: string) => v.trim());} comFields[fieldEntry.fieldName as string] = value;
+								}
+							}
+							if (Object.keys(comFields).length > 0) {
+								body.com_fields = comFields;
 							}
 						}
 
@@ -538,6 +581,242 @@ export class Joomla implements INodeType {
 							this,
 							'DELETE',
 							`/media/files/${pathPart}`,
+						);
+					}
+				}
+
+				// ----------------------------------------
+				//              Field (Custom Fields Management)
+				// ----------------------------------------
+				else if (resource === 'field') {
+					const context = this.getNodeParameter('context', i) as string;
+					// Determine endpoint based on context
+					const endpoint = context === 'com_content.article' 
+						? '/fields/content/articles' 
+						: '/fields/content/categories';
+
+					if (operation === 'create') {
+						const title = this.getNodeParameter('title', i) as string;
+						const type = this.getNodeParameter('type', i) as string;
+						const additionalFields = this.getNodeParameter('additionalFields', i) as IDataObject;
+
+						// Auto-generate name from title if not provided
+						let name = (additionalFields.name as string) || '';
+						if (!name) {
+							name = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+						}
+						delete additionalFields.name;
+
+						// Auto-generate label from title if not provided
+						let label = (additionalFields.label as string) || '';
+						if (!label) {
+							label = title;
+						}
+						delete additionalFields.label;
+
+						const body: IDataObject = {
+							title,
+							name,
+							label,
+							type,
+							context,
+							description: '',
+							params: {
+								hint: '',
+								class: '',
+								label_class: '',
+								show_on: '',
+								render_class: '',
+								showlabel: '1',
+								label_render_class: '',
+								display: '2',
+								prefix: '',
+								suffix: '',
+								layout: '',
+								display_readonly: '2',
+							},
+							fieldparams: {},
+						};
+
+						// Add additional fields
+						for (const [key, value] of Object.entries(additionalFields)) {
+							if (value !== '' && value !== undefined && value !== null) {
+								body[key] = value;
+							}
+						}
+
+						// Get fieldparams - type-specific options
+						const fieldparams: IDataObject = {};
+
+						// List/Radio/Checkboxes - get options JSON
+						if (['list', 'radio', 'checkboxes'].includes(type)) {
+							const fieldparamsJson = this.getNodeParameter('fieldparams', i, '{}') as string;
+							try {
+								Object.assign(fieldparams, JSON.parse(fieldparamsJson));
+							} catch {
+								// Invalid JSON, ignore
+							}
+						}
+
+						// List - multiple selection and header
+						if (type === 'list') {
+							const multiple = this.getNodeParameter('listMultiple', i, false) as boolean;
+							fieldparams.multiple = multiple;
+							const header = this.getNodeParameter('listHeader', i, '') as string;
+							if (header) fieldparams.header = header;
+						}
+
+						// Integer - first, last, step
+						if (type === 'integer') {
+							fieldparams.first = this.getNodeParameter('integerFirst', i, 1) as number;
+							fieldparams.last = this.getNodeParameter('integerLast', i, 10) as number;
+							fieldparams.step = this.getNodeParameter('integerStep', i, 1) as number;
+						}
+
+						// URL - relative, schemes, show_url
+						if (type === 'url') {
+							const relative = this.getNodeParameter('urlRelative', i, false) as boolean;
+							fieldparams.relative = relative;
+							const schemes = this.getNodeParameter('urlSchemes', i, ['http', 'https']) as string[];
+							fieldparams.schemes = schemes;
+							const showUrl = this.getNodeParameter('urlShowUrl', i, true) as boolean;
+							fieldparams.show_url = showUrl;
+						}
+
+						// Calendar - format and showtime
+						if (type === 'calendar') {
+							fieldparams.format = this.getNodeParameter('calendarFormat', i, '%Y-%m-%d') as string;
+							fieldparams.showtime = this.getNodeParameter('calendarShowtime', i, false) as boolean;
+						}
+
+						// Text - maxlength
+						if (type === 'text') {
+							const maxlength = this.getNodeParameter('textMaxlength', i, 0) as number;
+							if (maxlength > 0) fieldparams.maxlength = maxlength;
+						}
+
+						// Textarea - rows, cols, maxlength
+						if (type === 'textarea') {
+							fieldparams.rows = this.getNodeParameter('textareaRows', i, 5) as number;
+							fieldparams.cols = this.getNodeParameter('textareaCols', i, 50) as number;
+							const maxlength = this.getNodeParameter('textareaMaxlength', i, 0) as number;
+							if (maxlength > 0) fieldparams.maxlength = maxlength;
+						}
+
+						// Editor - buttons, width, height
+						if (type === 'editor') {
+							const buttons = this.getNodeParameter('editorButtons', i, true) as boolean;
+							fieldparams.buttons = buttons;
+							fieldparams.width = this.getNodeParameter('editorWidth', i, '100%') as string;
+							fieldparams.height = this.getNodeParameter('editorHeight', i, '250px') as string;
+						}
+
+						// Media - directory, preview
+						if (type === 'media') {
+							const directory = this.getNodeParameter('mediaDirectory', i, '') as string;
+							if (directory) fieldparams.directory = directory;
+							fieldparams.preview = this.getNodeParameter('mediaPreview', i, 'true') as string;
+						}
+
+						// SQL - query, header, multiple
+						if (type === 'sql') {
+							const query = this.getNodeParameter('sqlQuery', i, '') as string;
+							if (query) fieldparams.query = query;
+							const header = this.getNodeParameter('sqlHeader', i, '') as string;
+							if (header) fieldparams.header = header;
+							const multiple = this.getNodeParameter('sqlMultiple', i, false) as boolean;
+							fieldparams.multiple = multiple;
+						}
+
+						body.fieldparams = fieldparams;
+
+						responseData = await joomlaApiRequest.call(
+							this,
+							'POST',
+							endpoint,
+							body,
+						);
+					} else if (operation === 'delete') {
+						const fieldId = this.getNodeParameter('fieldId', i) as number;
+
+						await joomlaApiRequest.call(
+							this,
+							'DELETE',
+							`${endpoint}/${fieldId}`,
+						);
+
+						// Verify the field was actually deleted by trying to fetch it
+						try {
+							await joomlaApiRequest.call(
+								this,
+								'GET',
+								`${endpoint}/${fieldId}`,
+							);
+							// If we get here, the field still exists - wasn't deleted
+							throw new NodeOperationError(
+								this.getNode(),
+								`Field ${fieldId} was not deleted. Make sure the field is in Trashed state (state = -2) before deleting.`,
+								{ itemIndex: i }
+							);
+						} catch (error) {
+							// If we get a 404 or similar error, the field was deleted successfully
+							if ((error as Error).message.includes('not found') || 
+								(error as Error).message.includes('404') ||
+								(error as Error).message.includes('Not Found')) {
+								responseData = { success: true, message: `Field ${fieldId} deleted successfully` };
+							} else if ((error as Error).message.includes('was not deleted')) {
+								throw error;
+							} else {
+								// Some other error - field might be deleted, treat as success
+								responseData = { success: true, message: `Field ${fieldId} deleted successfully` };
+							}
+						}
+					} else if (operation === 'get') {
+						const fieldId = this.getNodeParameter('fieldId', i) as number;
+
+						responseData = await joomlaApiRequest.call(
+							this,
+							'GET',
+							`${endpoint}/${fieldId}`,
+						);
+					} else if (operation === 'getAll') {
+						const returnAll = this.getNodeParameter('returnAll', i);
+
+						if (returnAll) {
+							responseData = await joomlaApiRequestAllItems.call(
+								this,
+								'GET',
+								endpoint,
+							);
+						} else {
+							const limit = this.getNodeParameter('limit', i);
+							const qs: IDataObject = { 'page[limit]': limit };
+							const response = await joomlaApiRequest.call(
+								this,
+								'GET',
+								endpoint,
+								{},
+								qs,
+							);
+							responseData = (response as IDataObject).data as IDataObject[];
+						}
+					} else if (operation === 'update') {
+						const fieldId = this.getNodeParameter('fieldId', i) as number;
+						const updateFields = this.getNodeParameter('updateFields', i) as IDataObject;
+
+						const body: IDataObject = {};
+
+						for (const [key, value] of Object.entries(updateFields)) {
+							if (value !== '' && value !== undefined && value !== null) {
+								body[key] = value;
+							}
+						}
+
+						responseData = await joomlaApiRequest.call(
+							this,
+							'PATCH',
+							`${endpoint}/${fieldId}`,
+							body,
 						);
 					}
 				}

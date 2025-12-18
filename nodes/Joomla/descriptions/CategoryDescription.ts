@@ -238,6 +238,48 @@ export const categoryFields: INodeProperties[] = [
 			},
 		],
 	},
+	{
+		displayName: 'Custom Fields',
+		name: 'customFields',
+		type: 'fixedCollection',
+		placeholder: 'Add Custom Field',
+		default: {},
+		typeOptions: {
+			multipleValues: true,
+		},
+		displayOptions: {
+			show: {
+				resource: ['category'],
+				operation: ['create'],
+			},
+		},
+		description: 'Set values for category custom fields',
+		options: [
+			{
+				displayName: 'Field',
+				name: 'field',
+				values: [
+					{
+						displayName: 'Field Name or ID',
+						name: 'fieldName',
+						type: 'options',
+						typeOptions: {
+							loadOptionsMethod: 'getCategoryCustomFields',
+						},
+						default: '',
+						description: 'The custom field to set. Choose from the list, or specify the field name using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
+					},
+					{
+						displayName: 'Value',
+						name: 'fieldValue',
+						type: 'string',
+						default: '',
+						description: 'The value for this field. For text: enter text. For list/radio: enter the option value. For checkboxes: enter comma-separated values (e.g., "value1,value2"). For date: use YYYY-MM-DD format.',
+					},
+				],
+			},
+		],
+	},
 
 	// ----------------------------------
 	//         category:update
@@ -311,6 +353,48 @@ export const categoryFields: INodeProperties[] = [
 				type: 'string',
 				default: '',
 				description: 'The title of the category',
+			},
+		],
+	},
+	{
+		displayName: 'Custom Fields',
+		name: 'customFields',
+		type: 'fixedCollection',
+		placeholder: 'Add Custom Field',
+		default: {},
+		typeOptions: {
+			multipleValues: true,
+		},
+		displayOptions: {
+			show: {
+				resource: ['category'],
+				operation: ['update'],
+			},
+		},
+		description: 'Set values for category custom fields',
+		options: [
+			{
+				displayName: 'Field',
+				name: 'field',
+				values: [
+					{
+						displayName: 'Field Name or ID',
+						name: 'fieldName',
+						type: 'options',
+						typeOptions: {
+							loadOptionsMethod: 'getCategoryCustomFields',
+						},
+						default: '',
+						description: 'The custom field to set. Choose from the list, or specify the field name using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
+					},
+					{
+						displayName: 'Value',
+						name: 'fieldValue',
+						type: 'string',
+						default: '',
+						description: 'The value for this field. For text: enter text. For list/radio: enter the option value. For checkboxes: enter comma-separated values (e.g., "value1,value2"). For date: use YYYY-MM-DD format.',
+					},
+				],
 			},
 		],
 	},
