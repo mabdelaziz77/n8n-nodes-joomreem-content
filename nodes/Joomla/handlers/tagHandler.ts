@@ -20,6 +20,8 @@ export async function handleTag(
 		const body: IDataObject = {
 			title,
 			parent_id: additionalFields.parent_id || 1,
+			description: '', // Required by Joomla API, even if empty
+			language: '*', // Required by Joomla API, '*' = All
 		};
 
 		// Add other optional fields
