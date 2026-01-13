@@ -22,7 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Introduced `constants.ts` for shared configuration values
 - Reduced main node file (`Joomla.node.ts`) from 754 lines to under 100 lines
 
-## [0.2.0] - 2025-12-XX
+## [0.2.0] - 2025-12-12
 
 ### Added
 - Custom Fields support for all field types (Text, Textarea, Editor, Integer, List, Radio, Checkboxes, Calendar, URL, Media, SQL, Color, Email, User)
