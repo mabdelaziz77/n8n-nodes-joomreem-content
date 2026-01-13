@@ -174,6 +174,27 @@ The Media delete operation may not work reliably due to Joomla API limitations. 
 - [n8n Community Nodes Documentation](https://docs.n8n.io/integrations/community-nodes/)
 - [Report an Issue](https://github.com/mabdelaziz77/n8n-nodes-joomreem-content/issues)
 
+## 🤝 Commercial Support & Services
+
+Need help automating your Joomla workflow?
+
+While this node is open-source and free to use, setting up a robust, self-hosted automation pipeline can be complex. I offer professional consulting services to help you build:
+
+* **Custom AI Content Factories:** Turn your YouTube channel or RSS feeds into a fully automated, multilingual blog.
+* **Complex Integrations:** Connect Joomla to CRMs, Payments (Stripe/PayPal), or Marketing tools via n8n.
+* **Self-Hosted Setup:** Secure installation of n8n on your own VPS (DigitalOcean/Hetzner) to save on monthly SaaS fees.
+
+**[Hire me on Upwork](https://www.upwork.com/freelancers/~0159bcc4ee43c02f66?mp_source=share)** to discuss your project.
+
+---
+
+## ❤️ Support the Project
+
+If this node saved you time or money, consider supporting its development. Your sponsorship helps maintain the code, add new features (like Custom Fields support), and keep it free for the community.
+
+[![Sponsor on GitHub](https://img.shields.io/badge/Sponsor-GitHub-pink?style=for-the-badge&logo=github)](https://github.com/sponsors/mabdelaziz77)
+[![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20A%20Coffee-yellow?style=for-the-badge&logo=buy-me-a-coffee)](https://paypal.me/mabdelaziz77)
+
 ## License
 
 [MIT](LICENSE.md)
