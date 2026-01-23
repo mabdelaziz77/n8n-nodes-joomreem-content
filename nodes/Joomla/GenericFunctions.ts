@@ -23,12 +23,16 @@ export async function joomlaApiRequest(
 ): Promise<IDataObject | IDataObject[]> {
 	const credentials = await this.getCredentials('joomlaApi');
 
+	// Remove trailing slash from siteUrl to avoid double slashes in the URL
+	const siteUrl = (credentials.siteUrl as string).replace(/\/+$/, '');
+
 	const options: IHttpRequestOptions = {
 		method,
-		url: `${credentials.siteUrl}/api/index.php/v1${endpoint}`,
+		url: `${siteUrl}/api/index.php/v1${endpoint}`,
 		headers: {
 			'Accept': 'application/vnd.api+json',
 			'Content-Type': 'application/json',
+			'User-Agent': 'n8n',
 		},
 		qs,
 		body,

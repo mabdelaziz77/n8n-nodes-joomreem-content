@@ -50,9 +50,12 @@ export class JoomlaApi implements ICredentialType {
 
 	test: ICredentialTestRequest = {
 		request: {
-			baseURL: '={{$credentials.siteUrl}}',
+			baseURL: '={{$credentials.siteUrl.replace(/\\/+$/, "")}}',
 			url: '/api/index.php/v1/content/articles',
 			method: 'GET',
+			headers: {
+				'User-Agent': 'n8n',
+			},
 			qs: {
 				'page[limit]': 1,
 			},
@@ -60,4 +63,3 @@ export class JoomlaApi implements ICredentialType {
 		},
 	};
 }
-
