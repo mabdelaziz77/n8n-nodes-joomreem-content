@@ -113,45 +113,11 @@ export const categoryFields: INodeProperties[] = [
 		},
 		options: [
 			{
-				displayName: 'Language',
-				name: 'language',
-				type: 'options',
-				typeOptions: {
-					loadOptionsMethod: 'getLanguages',
-				},
-				default: '',
-				description: 'Filter by language',
-			},
-			{
-				displayName: 'Parent Category Name or ID',
-				name: 'parent_id',
-				type: 'options',
-				typeOptions: {
-					loadOptionsMethod: 'getCategories',
-				},
-				default: '',
-				description: 'Filter by parent category. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
-			},
-			{
 				displayName: 'Search',
 				name: 'search',
 				type: 'string',
 				default: '',
 				description: 'Search in title and description',
-			},
-			{
-				displayName: 'State',
-				name: 'state',
-				type: 'options',
-				options: [
-					{ name: 'All', value: '' },
-					{ name: 'Published', value: '1' },
-					{ name: 'Unpublished', value: '0' },
-					{ name: 'Archived', value: '2' },
-					{ name: 'Trashed', value: '-2' },
-				],
-				default: '',
-				description: 'Filter by publish state',
 			},
 		],
 	},

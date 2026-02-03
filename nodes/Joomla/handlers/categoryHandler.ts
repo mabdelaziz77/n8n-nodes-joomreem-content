@@ -82,15 +82,7 @@ export async function handleCategory(
 		const filters = this.getNodeParameter('filters', itemIndex) as IDataObject;
 		const qs: IDataObject = {};
 
-		if (filters.parent_id) {
-			qs['filter[parent_id]'] = filters.parent_id;
-		}
-		if (filters.state) {
-			qs['filter[state]'] = filters.state;
-		}
-		if (filters.language) {
-			qs['filter[language]'] = filters.language;
-		}
+		// Only search filter is supported by Joomla Categories API
 		if (filters.search) {
 			qs['filter[search]'] = filters.search;
 		}

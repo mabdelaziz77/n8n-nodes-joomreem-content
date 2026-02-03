@@ -86,7 +86,7 @@ export async function handleArticle(
 
 		// Apply filters
 		if (filters.catid) {
-			qs['filter[catid]'] = filters.catid;
+			qs['filter[category]'] = filters.catid;
 		}
 		if (filters.state) {
 			qs['filter[state]'] = filters.state;
