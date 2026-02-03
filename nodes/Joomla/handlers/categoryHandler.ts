@@ -24,7 +24,16 @@ export async function handleCategory(
 		// Only add non-empty fields
 		for (const [key, value] of Object.entries(additionalFields)) {
 			if (value !== '' && value !== undefined && value !== null) {
-				body[key] = value;
+				// Parse JSON fields (associations)
+				if (key === 'associations' && typeof value === 'string') {
+					try {
+						body[key] = JSON.parse(value);
+					} catch {
+						body[key] = value;
+					}
+				} else {
+					body[key] = value;
+				}
 			}
 		}
 
@@ -114,7 +123,16 @@ export async function handleCategory(
 		// Only add non-empty fields
 		for (const [key, value] of Object.entries(updateFields)) {
 			if (value !== '' && value !== undefined && value !== null) {
-				body[key] = value;
+				// Parse JSON fields (associations)
+				if (key === 'associations' && typeof value === 'string') {
+					try {
+						body[key] = JSON.parse(value);
+					} catch {
+						body[key] = value;
+					}
+				} else {
+					body[key] = value;
+				}
 			}
 		}
 

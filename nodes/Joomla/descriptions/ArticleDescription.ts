@@ -287,6 +287,13 @@ export const articleFields: INodeProperties[] = [
 				description: 'The publish state of the article',
 			},
 			{
+				displayName: 'Associations',
+				name: 'associations',
+				type: 'json',
+				default: '{}',
+				description: 'Multilingual associations as JSON object mapping language codes to article IDs. Example: {"en-GB": 123, "ar-AA": 456}',
+			},
+			{
 				displayName: 'Images',
 				name: 'images',
 				type: 'json',

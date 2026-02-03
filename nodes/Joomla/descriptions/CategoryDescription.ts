@@ -236,6 +236,13 @@ export const categoryFields: INodeProperties[] = [
 				default: 1,
 				description: 'The publish state of the category',
 			},
+			{
+				displayName: 'Associations',
+				name: 'associations',
+				type: 'json',
+				default: '{}',
+				description: 'Multilingual associations as JSON object mapping language codes to category IDs. Example: {"en-GB": 123, "ar-AA": 456}',
+			},
 		],
 	},
 	{
@@ -353,6 +360,13 @@ export const categoryFields: INodeProperties[] = [
 				type: 'string',
 				default: '',
 				description: 'The title of the category',
+			},
+			{
+				displayName: 'Associations',
+				name: 'associations',
+				type: 'json',
+				default: '{}',
+				description: 'Multilingual associations as JSON object mapping language codes to category IDs. Example: {"en-GB": 123, "ar-AA": 456}',
 			},
 		],
 	},
