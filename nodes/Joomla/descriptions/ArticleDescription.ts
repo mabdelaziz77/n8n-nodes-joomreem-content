@@ -463,6 +463,20 @@ export const articleFields: INodeProperties[] = [
 				default: '{}',
 				description: 'Article images as JSON. Example: {"image_intro": "images/articles/my-image.jpg", "image_intro_alt": "Alt text", "image_fulltext": "images/articles/my-image.jpg", "image_fulltext_alt": "Alt text"}',
 			},
+			{
+				displayName: 'Modified By',
+				name: 'modified_by',
+				type: 'number',
+				default: 0,
+				description: 'The modified by of the article',
+			},
+			{
+				displayName: 'Created By',
+				name: 'created_by',
+				type: 'number',
+				default: 0,
+				description: 'The created by of the article',
+			},
 		],
 	},
 	{

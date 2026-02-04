@@ -82,11 +82,13 @@ export async function handleCategory(
 		const filters = this.getNodeParameter('filters', itemIndex) as IDataObject;
 		const qs: IDataObject = {};
 
-		// Only search filter is supported by Joomla Categories API
+		// Only search and extension filters are supported by Joomla Categories API
 		if (filters.search) {
 			qs['filter[search]'] = filters.search;
 		}
-
+		if (filters.extension) {
+			qs['filter[extension]'] = filters.extension;
+		}
 		if (returnAll) {
 			responseData = await joomlaApiRequestAllItems.call(
 				this,

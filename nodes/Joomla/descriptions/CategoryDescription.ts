@@ -119,6 +119,13 @@ export const categoryFields: INodeProperties[] = [
 				default: '',
 				description: 'Search in title and description',
 			},
+			{
+				displayName: 'Extension',
+				name: 'extension',
+				type: 'string',
+				default: 'com_content',
+				description: 'The extension of the category',
+			},
 		],
 	},
 
