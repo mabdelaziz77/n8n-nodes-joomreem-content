@@ -24,7 +24,16 @@ export async function handleCategory(
 		// Only add non-empty fields
 		for (const [key, value] of Object.entries(additionalFields)) {
 			if (value !== '' && value !== undefined && value !== null) {
-				body[key] = value;
+				// Parse JSON fields (associations)
+				if (key === 'associations' && typeof value === 'string') {
+					try {
+						body[key] = JSON.parse(value);
+					} catch {
+						body[key] = value;
+					}
+				} else {
+					body[key] = value;
+				}
 			}
 		}
 
@@ -73,19 +82,13 @@ export async function handleCategory(
 		const filters = this.getNodeParameter('filters', itemIndex) as IDataObject;
 		const qs: IDataObject = {};
 
-		if (filters.parent_id) {
-			qs['filter[parent_id]'] = filters.parent_id;
-		}
-		if (filters.state) {
-			qs['filter[state]'] = filters.state;
-		}
-		if (filters.language) {
-			qs['filter[language]'] = filters.language;
-		}
+		// Only search and extension filters are supported by Joomla Categories API
 		if (filters.search) {
 			qs['filter[search]'] = filters.search;
 		}
-
+		if (filters.extension) {
+			qs['filter[extension]'] = filters.extension;
+		}
 		if (returnAll) {
 			responseData = await joomlaApiRequestAllItems.call(
 				this,
@@ -114,7 +117,16 @@ export async function handleCategory(
 		// Only add non-empty fields
 		for (const [key, value] of Object.entries(updateFields)) {
 			if (value !== '' && value !== undefined && value !== null) {
-				body[key] = value;
+				// Parse JSON fields (associations)
+				if (key === 'associations' && typeof value === 'string') {
+					try {
+						body[key] = JSON.parse(value);
+					} catch {
+						body[key] = value;
+					}
+				} else {
+					body[key] = value;
+				}
 			}
 		}
 

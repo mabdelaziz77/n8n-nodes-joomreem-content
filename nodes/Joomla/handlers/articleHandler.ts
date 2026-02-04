@@ -25,8 +25,8 @@ export async function handleArticle(
 		// Only add non-empty fields
 		for (const [key, value] of Object.entries(additionalFields)) {
 			if (value !== '' && value !== undefined && value !== null) {
-				// Parse JSON fields (images)
-				if (key === 'images' && typeof value === 'string') {
+				// Parse JSON fields (associations, images)
+				if ((key === 'associations' || key === 'images') && typeof value === 'string') {
 					try {
 						body[key] = JSON.parse(value);
 					} catch {
@@ -86,7 +86,7 @@ export async function handleArticle(
 
 		// Apply filters
 		if (filters.catid) {
-			qs['filter[category_id]'] = filters.catid;
+			qs['filter[category]'] = filters.catid;
 		}
 		if (filters.state) {
 			qs['filter[state]'] = filters.state;
