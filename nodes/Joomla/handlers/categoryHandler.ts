@@ -130,6 +130,28 @@ export async function handleCategory(
 			}
 		}
 
+		// When updating associations, ensure the category's own language is included
+		// in the PATCH body and NOT in the associations object
+		// (the Joomla CategoryModel adds "self" to associations automatically)
+		if (body.associations && typeof body.associations === 'object') {
+			// If language wasn't explicitly provided, fetch the current category to get it
+			if (!body.language) {
+				const currentCategory = await joomlaApiRequest.call(
+					this,
+					'GET',
+					`/content/categories/${categoryId}`,
+				);
+				const attributes = ((currentCategory as IDataObject).data as IDataObject)?.attributes as IDataObject;
+				if (attributes?.language) {
+					body.language = attributes.language as string;
+				}
+			}
+			// Remove the category's own language from associations (model adds it automatically)
+			if (body.language && (body.associations as IDataObject)[body.language as string] !== undefined) {
+				delete (body.associations as IDataObject)[body.language as string];
+			}
+		}
+
 		// Process custom fields
 		const customFieldsData = this.getNodeParameter('customFields', itemIndex, {}) as IDataObject;
 		if (customFieldsData.field && Array.isArray(customFieldsData.field)) {

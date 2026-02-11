@@ -168,6 +168,13 @@ Joomla requires items to be **trashed before permanently deleting**. The Delete 
 
 The Media delete operation may not work reliably due to Joomla API limitations. The Joomla Media API requires adapter paths like `local-images:/folder` which contain colons that cause URL routing issues. For deleting media files/folders, use the Joomla Media Manager UI.
 
+## 🎬 Video Tutorials
+
+Check out these tutorials to see the node in action:
+
+- **[Bulk Edit Authors](https://youtu.be/W77OyrWgYFM)** – Automate bulk author updates across Joomla articles using n8n
+- **[Joomla Trash Cleaner](https://youtu.be/c8PKW7ldC4U)** – Automatically clean up trashed articles and categories in Joomla
+
 ## Resources
 
 - [Joomla Web Services API Documentation](https://docs.joomla.org/J4.x:Joomla_Core_APIs)
