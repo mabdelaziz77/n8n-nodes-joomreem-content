@@ -6,6 +6,8 @@ This is an n8n community node by [JoomReem](https://joomreem.com) for [Joomla CM
 
 [n8n](https://n8n.io/) is a [fair-code licensed](https://docs.n8n.io/reference/license/) workflow automation platform.
 
+> **🤖 AI Agent Ready** — This node can be used as a tool by n8n AI Agents, enabling intelligent, conversational automation of your Joomla content.
+
 ## Features
 
 This node supports the following Joomla resources and operations:
@@ -19,7 +21,13 @@ This node supports the following Joomla resources and operations:
 | **Media** | List Files, Upload, Create Folder, Delete |
 
 ### Article Features
-- **Images**: Set intro and full article images with alt text
+- **Tags Management** (Update): Structured tag handling with four modes:
+  - **Replace All** — Replace all tags with a new selection
+  - **Add** — Merge new tags into existing ones
+  - **Remove** — Remove specific tags while preserving others
+  - **Clear All** — Remove all tags
+- **Images** (Create & Update): Unified configuration for intro and fulltext images with path, alt text, and caption
+  - Update supports per-image actions: **No Change**, **Set/Update**, or **Remove**
 - **Associations**: Link multilingual articles via the associations field
 - **Custom Fields**: Set custom field values when creating/updating articles
 - **Meta descriptions**: SEO-friendly meta data support
@@ -99,7 +107,7 @@ npm install n8n-nodes-joomreem-content
 
 ## Usage Examples
 
-### Create an Article with Image
+### Create an Article with Images
 
 ```
 Resource: Article
@@ -109,7 +117,34 @@ Category: Blog (select from dropdown)
 Additional Fields:
   - State: Published
   - Full Article Text: <p>Full HTML content here...</p>
-  - Images: {"image_intro": "images/my-image.jpg", "image_intro_alt": "Alt text"}
+Images:
+  - Intro Image: images/my-image.jpg
+  - Intro Image Alt: Alt text
+  - Intro Image Caption: Caption text
+```
+
+### Update Article Tags (Add)
+
+```
+Resource: Article
+Operation: Update
+Article ID: 11
+Tags:
+  - Mode: Add
+  - Tags: Tag A, Tag B (select from dropdown)
+```
+
+### Update Article Images
+
+```
+Resource: Article
+Operation: Update
+Article ID: 11
+Images:
+  - Intro Image Action: Set / Update
+  - Intro Image: images/new-intro.jpg
+  - Intro Alt Text: New alt text
+  - Fulltext Image Action: No Change
 ```
 
 ### Link Multilingual Articles

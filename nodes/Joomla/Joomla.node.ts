@@ -50,6 +50,7 @@ export class Joomla implements INodeType {
 		},
 		inputs: ['main'],
 		outputs: ['main'],
+		usableAsTool: true,
 		credentials: [
 			{
 				name: 'joomlaApi',

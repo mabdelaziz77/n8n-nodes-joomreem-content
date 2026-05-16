@@ -294,11 +294,78 @@ export const articleFields: INodeProperties[] = [
 				description: 'Multilingual associations as JSON object mapping language codes to article IDs. Example: {"en-GB": 123, "ar-AA": 456}',
 			},
 			{
-				displayName: 'Images',
-				name: 'images',
-				type: 'json',
-				default: '{}',
-				description: 'Article images as JSON. Example: {"image_intro": "images/articles/my-image.jpg", "image_intro_alt": "Alt text", "image_fulltext": "images/articles/my-image.jpg", "image_fulltext_alt": "Alt text"}',
+				displayName: 'Tag Names or IDs',
+				name: 'tags',
+				type: 'multiOptions',
+				typeOptions: {
+					loadOptionsMethod: 'getTags',
+				},
+				default: [],
+				description: 'Tags to assign to the article. Choose from the list, or specify IDs using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
+			},
+		],
+	},
+	{
+		displayName: 'Images',
+		name: 'articleImages',
+		type: 'fixedCollection',
+		placeholder: 'Add Images',
+		default: {},
+		displayOptions: {
+			show: {
+				resource: ['article'],
+				operation: ['create'],
+			},
+		},
+		description: 'Set intro and fulltext images for the article',
+		options: [
+			{
+				displayName: 'Image Settings',
+				name: 'imageSettings',
+				values: [
+					{
+						displayName: 'Intro Image Path',
+						name: 'image_intro',
+						type: 'string',
+						default: '',
+						description: 'Path to the intro image (e.g., images/articles/my-image.jpg)',
+					},
+					{
+						displayName: 'Intro Image Alt Text',
+						name: 'image_intro_alt',
+						type: 'string',
+						default: '',
+						description: 'Alt text for the intro image',
+					},
+					{
+						displayName: 'Intro Image Caption',
+						name: 'image_intro_caption',
+						type: 'string',
+						default: '',
+						description: 'Caption for the intro image',
+					},
+					{
+						displayName: 'Full Article Image Path',
+						name: 'image_fulltext',
+						type: 'string',
+						default: '',
+						description: 'Path to the full article image (e.g., images/articles/my-image.jpg)',
+					},
+					{
+						displayName: 'Full Article Image Alt Text',
+						name: 'image_fulltext_alt',
+						type: 'string',
+						default: '',
+						description: 'Alt text for the full article image',
+					},
+					{
+						displayName: 'Full Article Image Caption',
+						name: 'image_fulltext_caption',
+						type: 'string',
+						default: '',
+						description: 'Caption for the full article image',
+					},
+				],
 			},
 		],
 	},
@@ -457,13 +524,6 @@ export const articleFields: INodeProperties[] = [
 				description: 'Multilingual associations as JSON object mapping language codes to article IDs. Example: {"en-GB": 123, "ar-AA": 456}',
 			},
 			{
-				displayName: 'Images',
-				name: 'images',
-				type: 'json',
-				default: '{}',
-				description: 'Article images as JSON. Example: {"image_intro": "images/articles/my-image.jpg", "image_intro_alt": "Alt text", "image_fulltext": "images/articles/my-image.jpg", "image_fulltext_alt": "Alt text"}',
-			},
-			{
 				displayName: 'Modified By',
 				name: 'modified_by',
 				type: 'number',
@@ -476,6 +536,185 @@ export const articleFields: INodeProperties[] = [
 				type: 'number',
 				default: 0,
 				description: 'The created by of the article',
+			},
+		],
+	},
+	// ----------------------------------
+	//         article:update - Tags
+	// ----------------------------------
+	{
+		displayName: 'Tags',
+		name: 'updateTags',
+		type: 'fixedCollection',
+		placeholder: 'Configure Tags',
+		default: {},
+		displayOptions: {
+			show: {
+				resource: ['article'],
+				operation: ['update'],
+			},
+		},
+		description: 'Manage tags for the article. Select a mode to replace all tags, add to existing tags, or remove specific tags.',
+		options: [
+			{
+				displayName: 'Tag Settings',
+				name: 'tagSettings',
+				values: [
+					{
+						displayName: 'Mode',
+						name: 'mode',
+						type: 'options',
+						options: [
+							{
+								name: 'Replace All',
+								value: 'replace',
+								description: 'Replace all existing tags with the selected ones',
+							},
+							{
+								name: 'Add',
+								value: 'add',
+								description: 'Add tags to the existing ones (keeps current tags)',
+							},
+							{
+								name: 'Remove',
+								value: 'remove',
+								description: 'Remove specific tags from the article',
+							},
+							{
+								name: 'Clear All',
+								value: 'clear',
+								description: 'Remove all tags from the article',
+							},
+						],
+						default: 'replace',
+						description: 'How to handle tags',
+					},
+					{
+						displayName: 'Tag Names or IDs',
+						name: 'tags',
+						type: 'multiOptions',
+						typeOptions: {
+							loadOptionsMethod: 'getTags',
+						},
+						default: [],
+						description: 'Tags to apply based on the selected mode. Not needed when mode is "Clear All". Choose from the list, or specify IDs using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
+					},
+				],
+			},
+		],
+	},
+	// ----------------------------------
+	//         article:update - Images
+	// ----------------------------------
+	{
+		displayName: 'Images',
+		name: 'updateImages',
+		type: 'fixedCollection',
+		placeholder: 'Configure Images',
+		default: {},
+		displayOptions: {
+			show: {
+				resource: ['article'],
+				operation: ['update'],
+			},
+		},
+		description: 'Manage intro and fulltext images for the article. Only provided fields will be updated; others remain unchanged.',
+		options: [
+			{
+				displayName: 'Image Settings',
+				name: 'imageSettings',
+				values: [
+					{
+						displayName: 'Intro Image Action',
+						name: 'introAction',
+						type: 'options',
+						options: [
+							{
+								name: 'No Change',
+								value: 'skip',
+								description: 'Do not modify the intro image',
+							},
+							{
+								name: 'Set / Update',
+								value: 'set',
+								description: 'Set or update the intro image',
+							},
+							{
+								name: 'Remove',
+								value: 'remove',
+								description: 'Remove the intro image',
+							},
+						],
+						default: 'skip',
+						description: 'Whether to set/update, remove, or leave the intro image unchanged',
+					},
+					{
+						displayName: 'Intro Image Path',
+						name: 'image_intro',
+						type: 'string',
+						default: '',
+						description: 'Path to the intro image (e.g., images/articles/my-image.jpg)',
+					},
+					{
+						displayName: 'Intro Image Alt Text',
+						name: 'image_intro_alt',
+						type: 'string',
+						default: '',
+						description: 'Alt text for the intro image',
+					},
+					{
+						displayName: 'Intro Image Caption',
+						name: 'image_intro_caption',
+						type: 'string',
+						default: '',
+						description: 'Caption for the intro image',
+					},
+					{
+						displayName: 'Full Article Image Action',
+						name: 'fulltextAction',
+						type: 'options',
+						options: [
+							{
+								name: 'No Change',
+								value: 'skip',
+								description: 'Do not modify the full article image',
+							},
+							{
+								name: 'Set / Update',
+								value: 'set',
+								description: 'Set or update the full article image',
+							},
+							{
+								name: 'Remove',
+								value: 'remove',
+								description: 'Remove the full article image',
+							},
+						],
+						default: 'skip',
+						description: 'Whether to set/update, remove, or leave the full article image unchanged',
+					},
+					{
+						displayName: 'Full Article Image Path',
+						name: 'image_fulltext',
+						type: 'string',
+						default: '',
+						description: 'Path to the full article image (e.g., images/articles/my-image.jpg)',
+					},
+					{
+						displayName: 'Full Article Image Alt Text',
+						name: 'image_fulltext_alt',
+						type: 'string',
+						default: '',
+						description: 'Alt text for the full article image',
+					},
+					{
+						displayName: 'Full Article Image Caption',
+						name: 'image_fulltext_caption',
+						type: 'string',
+						default: '',
+						description: 'Caption for the full article image',
+					},
+				],
 			},
 		],
 	},
