@@ -120,7 +120,7 @@ export const articleFields: INodeProperties[] = [
 					loadOptionsMethod: 'getCategories',
 				},
 				default: '',
-				description: 'Filter by category. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+				description: 'Filter by category. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'Featured',
@@ -200,7 +200,7 @@ export const articleFields: INodeProperties[] = [
 				operation: ['create'],
 			},
 		},
-		description: 'The category for the article. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+		description: 'The category for the article. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 	},
 	{
 		displayName: 'Additional Fields',
@@ -301,7 +301,7 @@ export const articleFields: INodeProperties[] = [
 					loadOptionsMethod: 'getTags',
 				},
 				default: [],
-				description: 'Tags to assign to the article. Choose from the list, or specify IDs using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify IDs using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+				description: 'Tags to assign to the article. Choose from the list, or specify IDs using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 		],
 	},
@@ -398,7 +398,7 @@ export const articleFields: INodeProperties[] = [
 							loadOptionsMethod: 'getArticleCustomFields',
 						},
 						default: '',
-						description: 'The custom field to set. Choose from the list, or specify the field name using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+						description: 'The custom field to set. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 					},
 					{
 						displayName: 'Value',
@@ -450,14 +450,14 @@ export const articleFields: INodeProperties[] = [
 					loadOptionsMethod: 'getCategories',
 				},
 				default: '',
-				description: 'The category for the article. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+				description: 'The category for the article. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'Created By',
 				name: 'created_by',
 				type: 'number',
 				default: 0,
-				description: 'The created by of the article',
+				description: 'User ID of the article\'s original author',
 			},
 			{
 				displayName: 'Featured',
@@ -515,7 +515,7 @@ export const articleFields: INodeProperties[] = [
 				name: 'modified_by',
 				type: 'number',
 				default: 0,
-				description: 'The modified by of the article',
+				description: 'User ID of the last user to modify the article',
 			},
 			{
 				displayName: 'State',
@@ -597,7 +597,7 @@ export const articleFields: INodeProperties[] = [
 							loadOptionsMethod: 'getTags',
 						},
 						default: [],
-						description: 'Tags to apply based on the selected mode. Not needed when mode is "Clear All". Choose from the list, or specify IDs using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify IDs using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+						description: 'Tags to apply based on the selected mode. Not needed when mode is "Clear All". Choose from the list, or specify IDs using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 					},
 				],
 			},
@@ -635,7 +635,7 @@ export const articleFields: INodeProperties[] = [
 								description: 'Do not modify the full article image',
 							},
 							{
-								name: 'Set	/	Update',
+								name: 'Set / Update',
 								value: 'set',
 								description: 'Set or update the full article image',
 							},
@@ -680,7 +680,7 @@ export const articleFields: INodeProperties[] = [
 								description: 'Do not modify the intro image',
 							},
 							{
-								name: 'Set	/	Update',
+								name: 'Set / Update',
 								value: 'set',
 								description: 'Set or update the intro image',
 							},
@@ -747,7 +747,7 @@ export const articleFields: INodeProperties[] = [
 							loadOptionsMethod: 'getArticleCustomFields',
 						},
 						default: '',
-						description: 'The custom field to set. Choose from the list, or specify the field name using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+						description: 'The custom field to set. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 					},
 					{
 						displayName: 'Value',
