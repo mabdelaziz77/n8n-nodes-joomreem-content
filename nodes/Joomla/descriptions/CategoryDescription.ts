@@ -201,7 +201,7 @@ export const categoryFields: INodeProperties[] = [
 					loadOptionsMethod: 'getCategories',
 				},
 				default: '',
-				description: 'The parent category. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+				description: 'The parent category. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'State',
@@ -247,7 +247,7 @@ export const categoryFields: INodeProperties[] = [
 							loadOptionsMethod: 'getCategoryCustomFields',
 						},
 						default: '',
-						description: 'The custom field to set. Choose from the list, or specify the field name using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+						description: 'The custom field to set. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 					},
 					{
 						displayName: 'Value',
@@ -319,7 +319,7 @@ export const categoryFields: INodeProperties[] = [
 					loadOptionsMethod: 'getCategories',
 				},
 				default: '',
-				description: 'The parent category. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+				description: 'The parent category. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'State',
@@ -372,7 +372,7 @@ export const categoryFields: INodeProperties[] = [
 							loadOptionsMethod: 'getCategoryCustomFields',
 						},
 						default: '',
-						description: 'The custom field to set. Choose from the list, or specify the field name using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
+						description: 'The custom field to set. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 					},
 					{
 						displayName: 'Value',

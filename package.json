@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-joomreem-content",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "n8n community node by JoomReem for Joomla CMS content management - articles, categories, custom fields, tags, and media",
   "keywords": [
     "n8n-community-node-package",
