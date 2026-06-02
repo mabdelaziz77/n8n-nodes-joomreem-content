@@ -125,7 +125,7 @@ export const fieldFields: INodeProperties[] = [
 		typeOptions: {
 			minValue: 1,
 		},
-		default: 20,
+		default: 50,
 		description: 'Max number of results to return',
 	},
 
@@ -152,20 +152,20 @@ export const fieldFields: INodeProperties[] = [
 		type: 'options',
 		required: true,
 		options: [
-			{ name: 'Text', value: 'text' },
-			{ name: 'Textarea', value: 'textarea' },
-			{ name: 'Editor', value: 'editor' },
-			{ name: 'List', value: 'list' },
-			{ name: 'Radio', value: 'radio' },
-			{ name: 'Checkboxes', value: 'checkboxes' },
 			{ name: 'Calendar', value: 'calendar' },
-			{ name: 'Media', value: 'media' },
-			{ name: 'URL', value: 'url' },
+			{ name: 'Checkboxes', value: 'checkboxes' },
+			{ name: 'Color', value: 'color' },
+			{ name: 'Editor', value: 'editor' },
 			{ name: 'Email', value: 'email' },
 			{ name: 'Integer', value: 'integer' },
-			{ name: 'Color', value: 'color' },
-			{ name: 'User', value: 'user' },
+			{ name: 'List', value: 'list' },
+			{ name: 'Media', value: 'media' },
+			{ name: 'Radio', value: 'radio' },
 			{ name: 'SQL', value: 'sql' },
+			{ name: 'Text', value: 'text' },
+			{ name: 'Textarea', value: 'textarea' },
+			{ name: 'URL', value: 'url' },
+			{ name: 'User', value: 'user' },
 		],
 		default: 'text',
 		displayOptions: {
@@ -258,7 +258,7 @@ export const fieldFields: INodeProperties[] = [
 				type: ['list', 'radio', 'checkboxes'],
 			},
 		},
-		description: 'Define the options for list/radio/checkboxes fields. Format: {"options": {"options0": {"name": "Label", "value": "value"}, ...}}',
+		description: 'Define the options for list/radio/checkboxes fields. Format: {"options": {"options0": {"name": "Label", "value": "value"}, ...}}.',
 	},
 	// Multiple selection - for list type
 	{
@@ -368,11 +368,11 @@ export const fieldFields: INodeProperties[] = [
 		name: 'urlSchemes',
 		type: 'multiOptions',
 		options: [
-			{ name: 'HTTP', value: 'http' },
-			{ name: 'HTTPS', value: 'https' },
+			{ name: 'FILE', value: 'file' },
 			{ name: 'FTP', value: 'ftp' },
 			{ name: 'FTPS', value: 'ftps' },
-			{ name: 'FILE', value: 'file' },
+			{ name: 'HTTP', value: 'http' },
+			{ name: 'HTTPS', value: 'https' },
 			{ name: 'MAILTO', value: 'mailto' },
 		],
 		default: ['http', 'https'],
@@ -561,7 +561,7 @@ export const fieldFields: INodeProperties[] = [
 				type: ['sql'],
 			},
 		},
-		description: 'SQL query to get options (e.g., SELECT id AS value, title AS text FROM #__content)',
+		description: 'SQL query to get options (e.g., SELECT ID AS value, title AS text FROM #__content)',
 	},
 	{
 		displayName: 'Header/Placeholder',
@@ -596,7 +596,7 @@ export const fieldFields: INodeProperties[] = [
 	//         field:update
 	// ----------------------------------
 	{
-		displayName: 'Update Options',
+		displayName: 'Update Fields',
 		name: 'updateFields',
 		type: 'collection',
 		placeholder: 'Add Option',

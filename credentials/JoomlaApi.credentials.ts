@@ -3,11 +3,13 @@ import type {
 	ICredentialTestRequest,
 	ICredentialType,
 	INodeProperties,
+	Icon,
 } from 'n8n-workflow';
 
 export class JoomlaApi implements ICredentialType {
 	name = 'joomlaApi';
 	displayName = 'Joomla API';
+	icon: Icon = 'file:joomreem.svg';
 	documentationUrl = 'https://docs.joomla.org/J4.x:Joomla_Core_APIs';
 	properties: INodeProperties[] = [
 		{

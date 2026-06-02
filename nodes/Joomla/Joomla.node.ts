@@ -63,12 +63,12 @@ export class Joomla implements INodeType {
 				name: 'resource',
 				type: 'options',
 				noDataExpression: true,
+				default: 'article',
 				options: [
 					{
 						name: 'Article',
 						value: RESOURCE.ARTICLE,
 					},
-
 					{
 						name: 'Category',
 						value: RESOURCE.CATEGORY,
@@ -86,7 +86,6 @@ export class Joomla implements INodeType {
 						value: RESOURCE.TAG,
 					},
 				],
-				default: RESOURCE.ARTICLE,
 			},
 			// Article
 			...articleOperations,

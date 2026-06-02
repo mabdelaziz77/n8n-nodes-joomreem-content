@@ -155,7 +155,7 @@ export async function getLanguages(
 				value: attributes.lang_code as string,
 			});
 		}
-	} catch (error) {
+	} catch {
 		// Return default if languages API not available
 		returnData.push({
 			name: 'All',
@@ -185,7 +185,7 @@ export async function getArticleCustomFields(
 				description: `Type: ${attributes.type as string}`,
 			});
 		}
-	} catch (error) {
+	} catch {
 		// Return empty if fields API not available or no fields defined
 	}
 
@@ -211,7 +211,7 @@ export async function getCategoryCustomFields(
 				description: `Type: ${attributes.type as string}`,
 			});
 		}
-	} catch (error) {
+	} catch {
 		// Return empty if fields API not available or no fields defined
 	}
 

@@ -96,7 +96,7 @@ export const categoryFields: INodeProperties[] = [
 		typeOptions: {
 			minValue: 1,
 		},
-		default: 20,
+		default: 50,
 		description: 'Max number of results to return',
 	},
 	{
@@ -167,6 +167,13 @@ export const categoryFields: INodeProperties[] = [
 				description: 'URL-friendly alias (auto-generated from title if empty)',
 			},
 			{
+				displayName: 'Associations',
+				name: 'associations',
+				type: 'json',
+				default: '{}',
+				description: 'Multilingual associations as JSON object mapping language codes to category IDs. Do NOT include the category\'s own language. Example: for an en-GB category, use {"nl-NL": 456, "fr-FR": 789}',
+			},
+			{
 				displayName: 'Description',
 				name: 'description',
 				type: 'string',
@@ -177,14 +184,14 @@ export const categoryFields: INodeProperties[] = [
 				description: 'The description of the category',
 			},
 			{
-				displayName: 'Language',
+				displayName: 'Language Name or ID',
 				name: 'language',
 				type: 'options',
 				typeOptions: {
 					loadOptionsMethod: 'getLanguages',
 				},
 				default: '*',
-				description: 'The language of the category',
+				description: 'The language of the category. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'Parent Category Name or ID',
@@ -194,7 +201,7 @@ export const categoryFields: INodeProperties[] = [
 					loadOptionsMethod: 'getCategories',
 				},
 				default: '',
-				description: 'The parent category. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
+				description: 'The parent category. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'State',
@@ -208,13 +215,6 @@ export const categoryFields: INodeProperties[] = [
 				],
 				default: 1,
 				description: 'The publish state of the category',
-			},
-			{
-				displayName: 'Associations',
-				name: 'associations',
-				type: 'json',
-				default: '{}',
-				description: 'Multilingual associations as JSON object mapping language codes to category IDs. Do NOT include the category\'s own language. Example: for an en-GB category, use {"nl-NL": 456, "fr-FR": 789}',
 			},
 		],
 	},
@@ -247,7 +247,7 @@ export const categoryFields: INodeProperties[] = [
 							loadOptionsMethod: 'getCategoryCustomFields',
 						},
 						default: '',
-						description: 'The custom field to set. Choose from the list, or specify the field name using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
+						description: 'The custom field to set. Choose from the list, or specify the field name using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 					},
 					{
 						displayName: 'Value',
@@ -285,6 +285,13 @@ export const categoryFields: INodeProperties[] = [
 				description: 'URL-friendly alias',
 			},
 			{
+				displayName: 'Associations',
+				name: 'associations',
+				type: 'json',
+				default: '{}',
+				description: 'Multilingual associations as JSON object mapping language codes to category IDs. Do NOT include the category\'s own language. Example: for an en-GB category, use {"nl-NL": 456, "fr-FR": 789}',
+			},
+			{
 				displayName: 'Description',
 				name: 'description',
 				type: 'string',
@@ -295,14 +302,14 @@ export const categoryFields: INodeProperties[] = [
 				description: 'The description of the category',
 			},
 			{
-				displayName: 'Language',
+				displayName: 'Language Name or ID',
 				name: 'language',
 				type: 'options',
 				typeOptions: {
 					loadOptionsMethod: 'getLanguages',
 				},
 				default: '*',
-				description: 'The language of the category',
+				description: 'The language of the category. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'Parent Category Name or ID',
@@ -312,7 +319,7 @@ export const categoryFields: INodeProperties[] = [
 					loadOptionsMethod: 'getCategories',
 				},
 				default: '',
-				description: 'The parent category. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
+				description: 'The parent category. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'State',
@@ -333,13 +340,6 @@ export const categoryFields: INodeProperties[] = [
 				type: 'string',
 				default: '',
 				description: 'The title of the category',
-			},
-			{
-				displayName: 'Associations',
-				name: 'associations',
-				type: 'json',
-				default: '{}',
-				description: 'Multilingual associations as JSON object mapping language codes to category IDs. Do NOT include the category\'s own language. Example: for an en-GB category, use {"nl-NL": 456, "fr-FR": 789}',
 			},
 		],
 	},
@@ -372,7 +372,7 @@ export const categoryFields: INodeProperties[] = [
 							loadOptionsMethod: 'getCategoryCustomFields',
 						},
 						default: '',
-						description: 'The custom field to set. Choose from the list, or specify the field name using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
+						description: 'The custom field to set. Choose from the list, or specify the field name using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 					},
 					{
 						displayName: 'Value',
