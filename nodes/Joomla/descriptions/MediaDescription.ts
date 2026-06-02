@@ -21,7 +21,7 @@ export const mediaOperations: INodeProperties[] = [
 			{
 				name: 'Delete',
 				value: 'delete',
-				description: 'Delete a file or folder (Note: Due to Joomla API limitations with special characters in URLs, this operation may not work reliably. Consider using Joomla Media Manager for delete operations.)',
+				description: 'Delete a file or folder (Note: Due to Joomla API limitations with special characters in URLs, this operation may not work reliably. Consider using Joomla Media Manager for delete operations.).',
 				action: 'Delete a file or folder',
 			},
 			{

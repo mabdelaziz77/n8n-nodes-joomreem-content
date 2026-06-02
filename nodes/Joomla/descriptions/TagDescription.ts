@@ -96,7 +96,7 @@ export const tagFields: INodeProperties[] = [
 		typeOptions: {
 			minValue: 1,
 		},
-		default: 20,
+		default: 50,
 		description: 'Max number of results to return',
 	},
 	{
@@ -113,14 +113,14 @@ export const tagFields: INodeProperties[] = [
 		},
 		options: [
 			{
-				displayName: 'Language',
+				displayName: 'Language Name or ID',
 				name: 'language',
 				type: 'options',
 				typeOptions: {
 					loadOptionsMethod: 'getLanguages',
 				},
 				default: '',
-				description: 'Filter by language',
+				description: 'Filter by language. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'Parent Tag Name or ID',
@@ -130,7 +130,7 @@ export const tagFields: INodeProperties[] = [
 					loadOptionsMethod: 'getTags',
 				},
 				default: '',
-				description: 'Filter by parent tag. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
+				description: 'Filter by parent tag. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'Search',
@@ -202,14 +202,14 @@ export const tagFields: INodeProperties[] = [
 				description: 'The description of the tag',
 			},
 			{
-				displayName: 'Language',
+				displayName: 'Language Name or ID',
 				name: 'language',
 				type: 'options',
 				typeOptions: {
 					loadOptionsMethod: 'getLanguages',
 				},
 				default: '*',
-				description: 'The language of the tag',
+				description: 'The language of the tag. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'Parent Tag Name or ID',
@@ -219,7 +219,7 @@ export const tagFields: INodeProperties[] = [
 					loadOptionsMethod: 'getTags',
 				},
 				default: '',
-				description: 'The parent tag. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
+				description: 'The parent tag. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'State',
@@ -269,14 +269,14 @@ export const tagFields: INodeProperties[] = [
 				description: 'The description of the tag',
 			},
 			{
-				displayName: 'Language',
+				displayName: 'Language Name or ID',
 				name: 'language',
 				type: 'options',
 				typeOptions: {
 					loadOptionsMethod: 'getLanguages',
 				},
 				default: '*',
-				description: 'The language of the tag',
+				description: 'The language of the tag. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'Parent Tag Name or ID',
@@ -286,7 +286,7 @@ export const tagFields: INodeProperties[] = [
 					loadOptionsMethod: 'getTags',
 				},
 				default: '',
-				description: 'The parent tag. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>.',
+				description: 'The parent tag. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code-examples/expressions/">expression</a>. Choose from the list, or specify an ID using an <a href="https://docs.n8n.io/code/expressions/">expression</a>.',
 			},
 			{
 				displayName: 'State',
