@@ -29,6 +29,32 @@ function buildImagesFromCollection(imagesData: IDataObject): IDataObject {
 }
 
 /**
+ * Process custom attributes (free-form key-value pairs) and merge them into the body.
+ * JSON strings in value position are parsed so callers can pass objects/arrays.
+ */
+function processCustomAttributes(customAttributesData: IDataObject, body: IDataObject): void {
+	if (customAttributesData.attribute && Array.isArray(customAttributesData.attribute)) {
+		for (const entry of customAttributesData.attribute as IDataObject[]) {
+			const key = entry.key as string;
+			const raw = entry.value;
+			if (!key) continue;
+			if (typeof raw === 'string') {
+				const trimmed = raw.trim();
+				if ((trimmed.startsWith('{') || trimmed.startsWith('[')) ) {
+					try {
+						body[key] = JSON.parse(trimmed);
+						continue;
+					} catch {
+						// fall through: store as plain string
+					}
+				}
+			}
+			body[key] = raw;
+		}
+	}
+}
+
+/**
  * Process custom fields from a fixedCollection and add them to the body
  */
 function processCustomFields(customFieldsData: IDataObject, body: IDataObject): void {
@@ -99,6 +125,10 @@ export async function handleArticle(
 		// Process custom fields
 		const customFieldsData = this.getNodeParameter('customFields', itemIndex, {}) as IDataObject;
 		processCustomFields(customFieldsData, body);
+
+		// Process custom attributes (free-form key-value pairs)
+		const customAttributesData = this.getNodeParameter('customAttributes', itemIndex, {}) as IDataObject;
+		processCustomAttributes(customAttributesData, body);
 
 		responseData = await joomlaApiRequest.call(
 			this,
@@ -315,6 +345,10 @@ export async function handleArticle(
 		// Process custom fields
 		const customFieldsData = this.getNodeParameter('customFields', itemIndex, {}) as IDataObject;
 		processCustomFields(customFieldsData, body);
+
+		// Process custom attributes (free-form key-value pairs)
+		const updateCustomAttributesData = this.getNodeParameter('customAttributes', itemIndex, {}) as IDataObject;
+		processCustomAttributes(updateCustomAttributesData, body);
 
 		responseData = await joomlaApiRequest.call(
 			this,

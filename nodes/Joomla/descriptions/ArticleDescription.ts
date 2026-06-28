@@ -411,6 +411,45 @@ export const articleFields: INodeProperties[] = [
 			},
 		],
 	},
+	{
+		displayName: 'Custom Attributes',
+		name: 'customAttributes',
+		type: 'fixedCollection',
+		placeholder: 'Add Attribute',
+		default: {},
+		typeOptions: {
+			multipleValues: true,
+		},
+		displayOptions: {
+			show: {
+				resource: ['article'],
+				operation: ['create'],
+			},
+		},
+		description: 'Arbitrary key-value pairs merged into the request body. Use this for attributes not covered by the predefined fields (e.g. featured_up, featured_down).',
+		options: [
+			{
+				displayName: 'Attribute',
+				name: 'attribute',
+				values: [
+					{
+						displayName: 'Key',
+						name: 'key',
+						type: 'string',
+						default: '',
+						description: 'The attribute name as expected by the Joomla API',
+					},
+					{
+						displayName: 'Value',
+						name: 'value',
+						type: 'string',
+						default: '',
+						description: 'The attribute value. JSON objects/arrays are parsed automatically.',
+					},
+				],
+			},
+		],
+	},
 
 	// ----------------------------------
 	//         article:update
@@ -755,6 +794,45 @@ export const articleFields: INodeProperties[] = [
 						type: 'string',
 						default: '',
 						description: 'The value for this field. For text: enter text. For list/radio: enter the option value. For checkboxes: enter comma-separated values (e.g., "value1,value2"). For date: use YYYY-MM-DD format.',
+					},
+				],
+			},
+		],
+	},
+	{
+		displayName: 'Custom Attributes',
+		name: 'customAttributes',
+		type: 'fixedCollection',
+		placeholder: 'Add Attribute',
+		default: {},
+		typeOptions: {
+			multipleValues: true,
+		},
+		displayOptions: {
+			show: {
+				resource: ['article'],
+				operation: ['update'],
+			},
+		},
+		description: 'Arbitrary key-value pairs merged into the request body. Use this for attributes not covered by the predefined fields (e.g. featured_up, featured_down).',
+		options: [
+			{
+				displayName: 'Attribute',
+				name: 'attribute',
+				values: [
+					{
+						displayName: 'Key',
+						name: 'key',
+						type: 'string',
+						default: '',
+						description: 'The attribute name as expected by the Joomla API',
+					},
+					{
+						displayName: 'Value',
+						name: 'value',
+						type: 'string',
+						default: '',
+						description: 'The attribute value. JSON objects/arrays are parsed automatically.',
 					},
 				],
 			},
